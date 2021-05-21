@@ -2,7 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Hotel;
+use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
@@ -22,5 +25,10 @@ class DatabaseSeeder extends Seeder
         //$this->call(ReservationSeeder::class);
         //$this->call(GuestSeeder::class);
         //$this->call(BoxSeeder::class);
+
+
+
+
+
     }
 }
