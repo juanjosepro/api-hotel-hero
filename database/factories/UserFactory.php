@@ -25,13 +25,13 @@ class UserFactory extends Factory
     {
         return [
             'role_id' => Role::inRandomOrder()->value('id'),
-            'name' =>  strtolower($this->faker->name),
-            'last_name' => strtolower($this->faker->lastName),
-            'dni' => $this->faker->ean8,
-            'phone' => $this->faker->phoneNumber,
-            'date_of_birth' => $this->faker->datetime($max = 'now'),
+            'name' =>  'juan jose',
+            'last_name' => 'pauccara huancara',
+            'dni' => '48000000',
+            'phone' => '935000000',
+            'date_of_birth' => '1995-09-06 01:29:04',
             'status' => "enabled", //$this->faker->randomElement(['enabled', 'disabled']),
-            'email' => strtolower($this->faker->unique()->safeEmail),
+            'email' => 'admin@gmail.com',
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
