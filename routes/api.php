@@ -78,7 +78,7 @@ Route::name('api.v1.')->group(function () {
 
     //ROOMS
     Route::get('/rooms/{status?}', [RoomController::class, 'index'])
-        ->name('rooms.index')
+        ->name('rooms.index.status')
         ->where('status', '[a-zA-Z]+');
 
     Route::apiResource('rooms', RoomController::class)
@@ -112,7 +112,7 @@ Route::name('api.v1.')->group(function () {
 
     //GUESTS
     Route::get('/guests/{status?}', [GuestController::class, 'index'])
-        ->name('guests.index')
+        ->name('guests.index.status')
         ->where('status', '[a-zA-Z]+');
 
     //not working
