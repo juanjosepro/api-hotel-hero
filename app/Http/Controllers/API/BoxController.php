@@ -68,7 +68,7 @@ class BoxController extends Controller
         if (strlen($date) !== 10){
             return response()->macroResponseJsonApi(
                 "Parameter invalid!.. the parameter must be example '2021-04-15'",
-                400
+                404
             );
         }
 
@@ -79,7 +79,7 @@ class BoxController extends Controller
         if(count($cashDetails) == 0) {
             return response()->macroResponseJsonApi(
                 "No resources to show",
-                404
+                204
             );
         }
 

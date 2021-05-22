@@ -24,7 +24,7 @@ class ReservationController extends Controller
             return ResourceCollection::make($reservations);
         }
 
-        return response()->macroResponseJsonApi("no resources to show", 404);
+        return response()->macroResponseJsonApi("no resources to show", 204);
     }
 
     /**
@@ -60,7 +60,7 @@ class ReservationController extends Controller
         }
 
         return response()
-        ->macroResponseJsonApi("resource not found", 404);
+        ->macroResponseJsonApi("resource not found", 204);
     }
 
     /**
@@ -82,7 +82,7 @@ class ReservationController extends Controller
         }
 
         return response()
-        ->macroResponseJsonApi("resource not found", 404);
+        ->macroResponseJsonApi("resource not found", 204);
     }
 
     /**
@@ -100,7 +100,7 @@ class ReservationController extends Controller
         }
 
         return response()
-        ->macroResponseJsonApi("resource not found", 404);
+        ->macroResponseJsonApi("resource not found", 204);
     }
 
     public function addTheDataToItsProperties ($model, $request)

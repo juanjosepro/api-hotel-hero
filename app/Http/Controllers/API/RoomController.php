@@ -39,7 +39,7 @@ class RoomController extends Controller
         if (count($rooms) > 0) {
             return ResourceCollection::make($rooms);
         }
-        return response()->macroResponseJsonApi('no resources to show!', 404);
+        return response()->macroResponseJsonApi('no resources to show!', 204);
     }
 
     /**

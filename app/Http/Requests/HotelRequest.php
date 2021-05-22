@@ -25,7 +25,7 @@ class HotelRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'min:3', 'max:30'],
-            'ruc' => ['required', 'min:3', 'max:1'],//, 'numeric', 'digits_between:8,15'
+            'ruc' => ['required', 'min:3', 'max:11'],//, 'numeric', 'digits_between:8,15'
             'location' => ['required', 'string', 'min:3', 'max:50'],
             'levels' => ['required', 'numeric'],
             'phone' => ['required', 'digits_between:8,14'],

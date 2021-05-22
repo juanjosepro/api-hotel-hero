@@ -18,7 +18,7 @@ class HotelController extends Controller
         return ResourceObject::make($hotel);
       }
 
-      return response()->macroResponseJsonApi("no resource to show", 404);
+      return response()->macroResponseJsonApi("no resource to show", 204);
     }
 
     public function update(HotelRequest $request, Hotel $hotel)

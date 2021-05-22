@@ -97,7 +97,7 @@ class ReceptionController extends Controller
 
         return response()->macroResponseJsonApi(
             'no guest was found currently staying in this room number',
-            404
+            204
         );
     }
 
@@ -125,7 +125,7 @@ class ReceptionController extends Controller
             return response()->macroResponseJsonApi("guest update successfully", 200);
         }
 
-        return response()->macroResponseJsonApi("guest not found", 404);
+        return response()->macroResponseJsonApi("guest not found", 204);
     }
 
     /**

@@ -25,7 +25,7 @@ class CategoryController extends Controller
             return ResourceCollection::make($categories);
         }
 
-        return response()->macroResponseJsonApi("no resources to show", 404);
+        return response()->macroResponseJsonApi("no resources to show", 204);
     }
 
     /**

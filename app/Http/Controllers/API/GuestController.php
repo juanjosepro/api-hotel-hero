@@ -43,7 +43,7 @@ class GuestController extends Controller
 
         return response()->json([
            "msg" => "no resource to show"
-        ], 404);
+        ], 204);
     }
 
     /**

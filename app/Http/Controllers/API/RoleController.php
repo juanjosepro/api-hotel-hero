@@ -23,7 +23,7 @@ class RoleController extends Controller
             return ResourceCollection::make($roles);
         }
 
-        return response()->macroResponseJsonApi("no resources to show", 404);
+        return response()->macroResponseJsonApi("no resources to show", 204);
     }
 
     /**

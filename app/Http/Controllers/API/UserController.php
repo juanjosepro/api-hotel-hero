@@ -34,7 +34,7 @@ class UserController extends Controller
         }
 
         return response()
-            ->macroResponseJsonApi("no resources to show", 404);
+            ->macroResponseJsonApi("no resources to show", 204);
     }
 
     /**
