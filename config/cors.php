@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['http://localhost:8080'],
+    'allowed_origins' => env('VUE_APP_URL'),
 
     'allowed_origins_patterns' => [],
 
