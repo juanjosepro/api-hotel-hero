@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\API\StatisticsController;
-use App\Http\Controllers\Auth\LoginController;
 use App\Http\Resources\ResourceObject;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -21,11 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request){
     return ResourceObject::make($request->user());
 });
 
-
 Route::name('api.v1.')->group(function () {
-    //LOGIN AND LOGOUT
-    Route::post("login", [LoginController::class, 'login'])->name("login");
-    Route::post("logout", [LoginController::class, 'logout'])->name("logout");
 
     //HOTEL DATA CONFIGURATION
     Route::get('/hotel', [HotelController::class, 'index'])->name('hotel.index');
