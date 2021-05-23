@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*hotel.juanjosepau.com'], //env('VUE_APP_URL')
+    'allowed_origins' => ['*.juanjosepau.com'], //env('VUE_APP_URL')
 
     'allowed_origins_patterns' => [],
 
