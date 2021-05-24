@@ -19,7 +19,7 @@ class UserController extends Controller
      */
 
     /* status = enabled OR disabled */
-    public function index($status = "enabled")
+    public function index($status)
     {
         $statusLowercase = strtolower($status);
 

@@ -37,7 +37,7 @@ Route::name('api.v1.')->group(function () {
 
 
     //USERS
-    Route::get('/users/{user:status}', [UserController::class, 'index'])
+    Route::get('/users/{users:status}', [UserController::class, 'index'])
         ->name('users.index')
         ->where('status', '[a-zA-Z]+');
 
