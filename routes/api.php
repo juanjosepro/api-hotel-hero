@@ -37,7 +37,7 @@ Route::name('api.v1.')->group(function () {
 
 
     //USERS
-/*    Route::get('/users/{user:status?}', [UserController::class, 'index'])
+    Route::get('/users/{user:status?}', [UserController::class, 'index'])
         ->name('users.index')
         ->where('status', '[a-zA-Z]+');
 
@@ -46,9 +46,10 @@ Route::name('api.v1.')->group(function () {
         ->where('dni', '[0-9]+')
         ->missing(function () {
             return response()->macroResponseJsonApi('resource not found', 404);
-        });*/
+        });
 
     Route::apiResource('/users', UserController::class)
+        ->except('index'. 'show')
         ->missing(function () {
             return response()->macroResponseJsonApi('resource not found', 404);
         });
@@ -68,6 +69,7 @@ Route::name('api.v1.')->group(function () {
         ->where('name', '[a-zA-Z]+');
 
     Route::apiResource('/categories', CategoryController::class)
+        ->except('show')
         ->missing(function () {
             return response()->macroResponseJsonApi('resource not found', 404);
         });
@@ -76,17 +78,17 @@ Route::name('api.v1.')->group(function () {
     Route::get('/rooms/{room:status?}', [RoomController::class, 'index'])
         ->name('rooms.index')
         ->where('status', '[a-zA-Z]+');
-    Route::post('/rooms', [RoomController::class, 'store'])->name('rooms.store');
+    /*Route::post('/rooms', [RoomController::class, 'store'])->name('rooms.store');
     Route::get('/rooms/{room}', [RoomController::class, 'show'])->name('rooms.show');
     Route::put('/rooms/{room}', [RoomController::class, 'update'])->name('rooms.update');
-    Route::delete('/rooms/{room}', [RoomController::class, 'destroy'])->name('rooms.destroy');
+    Route::delete('/rooms/{room}', [RoomController::class, 'destroy'])->name('rooms.destroy');*/
 
-    /*Route::apiResource('/rooms', RoomController::class)
+    Route::apiResource('/rooms', RoomController::class)
         ->except('index')
         ->where(['number' => '[0-9]+'])
         ->missing(function () {
             return response()->macroResponseJsonApi('resource not found', 404);
-        });*/
+        });
 
     //RECEPTION
     Route::get('/reception', [ReceptionController::class, 'index'])->name('reception.index');
