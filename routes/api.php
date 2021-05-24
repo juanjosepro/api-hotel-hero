@@ -20,6 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request){
     return ResourceObject::make($request->user());
 });
 
+
 Route::name('api.v1.')->group(function () {
 
     //HOTEL DATA CONFIGURATION
@@ -28,7 +29,7 @@ Route::name('api.v1.')->group(function () {
 
 
     //ROLES
-    Route::apiResource('roles', RoleController::class)
+    Route::apiResource('/roles', RoleController::class)
         ->where(['id' =>'[0-9]+']) //it does not work
         ->missing(function (Request $request) {
             return response()->macroResponseJsonApi('resource not found', 404);
@@ -36,18 +37,19 @@ Route::name('api.v1.')->group(function () {
 
 
     //USERS
-    Route::get('/users/{status?}', [UserController::class, 'index'])
-        ->name('users.index.status')
+    Route::get('/users/{user:status?}', [UserController::class, 'index'])
+        ->name('users.index')
         ->where('status', '[a-zA-Z]+');
-
-    Route::apiResource('users', UserController::class)
-        ->missing(function () {
-            return response()->macroResponseJsonApi('resource not found', 404);
-        });
 
     Route::get('/users/{user:dni}', [UserController::class, 'show'])
         ->name('users.show')
         ->where('dni', '[0-9]+')
+        ->missing(function () {
+            return response()->macroResponseJsonApi('resource not found', 404);
+        });
+
+    Route::apiResource('/users', UserController::class)
+        ->except(['index', 'show'])
         ->missing(function () {
             return response()->macroResponseJsonApi('resource not found', 404);
         });
@@ -66,17 +68,18 @@ Route::name('api.v1.')->group(function () {
         ->name('categories.get-all-rooms-by-category')
         ->where('name', '[a-zA-Z]+');
 
-    Route::apiResource('categories', CategoryController::class)
+    Route::apiResource('/categories', CategoryController::class)
         ->missing(function () {
             return response()->macroResponseJsonApi('resource not found', 404);
         });
 
     //ROOMS
-    Route::get('/rooms/{status?}', [RoomController::class, 'index'])
-        ->name('rooms.index.status')
+    Route::get('/rooms/{room:status?}', [RoomController::class, 'index'])
+        ->name('rooms.index')
         ->where('status', '[a-zA-Z]+');
 
-    Route::apiResource('rooms', RoomController::class)
+    Route::apiResource('/rooms', RoomController::class)
+        ->except('index')
         ->where(['number' => '[0-9]+'])
         ->missing(function () {
             return response()->macroResponseJsonApi('resource not found', 404);
@@ -91,7 +94,7 @@ Route::name('api.v1.')->group(function () {
 
     Route::post('/reception', [ReceptionController::class, 'registerANewGuestThroughTheReception'])->name('reception.store');
 
-    Route::put('/reception/{idGuest}', [ReceptionController::class, 'updateAGuestHostedThroughTheReception'])
+    Route::put('/reception/{reception:id}', [ReceptionController::class, 'updateAGuestHostedThroughTheReception'])
     ->name('reception.update')
     ->where('id', '[0-9]+');
 
@@ -106,12 +109,12 @@ Route::name('api.v1.')->group(function () {
 
 
     //GUESTS
-    Route::get('/guests/{status?}', [GuestController::class, 'index'])
-        ->name('guests.index.status')
+    Route::get('/guests/{guest:status?}', [GuestController::class, 'index'])
+        ->name('guests.index')
         ->where('status', '[a-zA-Z]+');
 
     //not working
-    Route::apiResource('/guests', GuestController::class);
+    Route::apiResource('/guests', GuestController::class)->except(['index']);
 
 
     //BOXES
@@ -121,7 +124,7 @@ Route::name('api.v1.')->group(function () {
 
 
     //SAVES IMAGES
-    Route::delete('remove-an-image-from-gallery/{id}', [ImageController::class, 'removeAnImageFromGallery'])->name('image.removeAnImageFromGallery');
+    Route::delete('/remove-an-image-from-gallery/{id}', [ImageController::class, 'removeAnImageFromGallery'])->name('image.removeAnImageFromGallery');
 
     //STATISTICS
     Route::get('/get-most-used-rooms',[StatisticsController::class, 'getMostUsedRooms']);
