@@ -49,7 +49,7 @@ Route::name('api.v1.')->group(function () {
         });
 
     Route::apiResource('/users', UserController::class)
-        ->except('index'. 'show')
+        ->except(['index'. 'show'])
         ->missing(function () {
             return response()->macroResponseJsonApi('resource not found', 404);
         });
@@ -69,7 +69,7 @@ Route::name('api.v1.')->group(function () {
         ->where('name', '[a-zA-Z]+');
 
     Route::apiResource('/categories', CategoryController::class)
-        ->except('show')
+        ->except(['show'])
         ->missing(function () {
             return response()->macroResponseJsonApi('resource not found', 404);
         });
@@ -84,7 +84,7 @@ Route::name('api.v1.')->group(function () {
     Route::delete('/rooms/{room}', [RoomController::class, 'destroy'])->name('rooms.destroy');*/
 
     Route::apiResource('/rooms', RoomController::class)
-        ->except('index')
+        ->except(['index'])
         ->where(['number' => '[0-9]+'])
         ->missing(function () {
             return response()->macroResponseJsonApi('resource not found', 404);
@@ -119,7 +119,8 @@ Route::name('api.v1.')->group(function () {
         ->where('status', '[a-zA-Z]+');
 
     //not working
-    Route::apiResource('/guests', GuestController::class)->except(['index']);
+    Route::apiResource('/guests', GuestController::class)->except(['index'])
+        ->except(['index']);
 
 
     //BOXES
