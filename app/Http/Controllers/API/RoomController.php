@@ -11,12 +11,12 @@ use Illuminate\Http\Response;
 
 class RoomController extends Controller
 {
-    public function index($status = "optional")
+    public function index($status = "all")
     {
         //if status is empty return all rooms
         $rooms = "";
 
-        if ($status === "optional") {
+        if ($status === "all") {
             $rooms = Room::latest()->get();
         } else {
             $statusLowercase = strtolower($status);
