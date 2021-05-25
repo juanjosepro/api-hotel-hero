@@ -39,7 +39,7 @@ Route::name('api.v1.')->group(function () {
     //USERS
     Route::get('/users/{status?}', [UserController::class, 'index'])
         ->name('users.index')
-        ->where('status', '[a-zA-Z]+');;
+        ->where('status', '[a-zA-Z]+');
 
     Route::get('/users/show/{user:dni}', [UserController::class, 'show'])
         ->name('users.show')
@@ -76,9 +76,9 @@ Route::name('api.v1.')->group(function () {
         ->name('rooms.index')
         ->where('status', '[a-zA-Z]+');
 
-    Route::get('/rooms/show/{room:dni}', [RoomController::class, 'show'])
+    Route::get('/rooms/show/{room:number}', [RoomController::class, 'show'])
         ->name('rooms.show')
-        ->where('dni', '[0-9]+');
+        ->where('number', '[0-9]+');
 
     Route::apiResource('/rooms', RoomController::class)
         ->except('index', 'show', 'destroy')

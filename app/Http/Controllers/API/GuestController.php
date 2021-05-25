@@ -11,11 +11,11 @@ use Illuminate\Http\Response;
 
 class GuestController extends Controller
 {
-    public function index($status = "")
+    public function index($status = "optional")
     {
         $guests = "";
 
-        if (empty($status)) {
+        if ($status === "optional") {
             $guests = Guest::latest()->get();
         } else {
             $statusLowercase = strtolower($status);
