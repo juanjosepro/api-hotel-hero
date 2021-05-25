@@ -91,17 +91,4 @@ class RoomController extends Controller
 
         return ResourceObject::make($room);
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param Room $room
-     * @return Response
-     */
-    public function destroy(Room $room)
-    {
-        $room->status = "disabled";
-        $room->save();
-        return response()->macroResponseJsonApi("room disabled successfully", 200);
-    }
 }

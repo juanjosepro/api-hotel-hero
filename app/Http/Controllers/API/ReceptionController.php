@@ -46,13 +46,13 @@ class ReceptionController extends Controller
         return $data;
     }
 
-    /**
-     * Store a newly created resource in storage.
+    /**.
+     * Register a new guest through the reception
      *
      * @param ReceptionRequest $request
      * @return Response
      */
-    public function registerANewGuestThroughTheReception(ReceptionRequest $request)
+    public function store(ReceptionRequest $request)
     {
         //change 2021-04-09 21:06:53 to 2021-04-09 21:06:00
         $changeSecondsEntry = substr($request["entry_date"], 0, 17);
@@ -86,7 +86,7 @@ class ReceptionController extends Controller
      * @param int $number
      * @return ResourceObject
      */
-    public function showGuestData(int $number)
+    public function show(int $number)
     {
         $guest = Guest::where("room_number", $number)
             ->where("status", "hosped")
@@ -102,13 +102,13 @@ class ReceptionController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update a guest hosped through the reception
      *
      * @param ReceptionRequest $request
      * @param int $id
      * @return Response
      */
-    public function updateAGuestHostedThroughTheReception(ReceptionRequest $request, int $id)
+    public function update(ReceptionRequest $request, int $id)
     {
         $guest = Guest::find($id);
 
@@ -129,12 +129,12 @@ class ReceptionController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove a guest and free the room.
      *
      * @param int $id
      * @return Response
      */
-    public function removeAGuestAndFreeTheRoom(int $id)
+    public function destroy(int $id)
     {
         $guest = Guest::where("id", $id)->where("status", "hosped")->get()->first();
 
@@ -151,7 +151,7 @@ class ReceptionController extends Controller
             );
         }
 
-        return response()->macroResponseJsonApi("guest not found", 404);
+        return response()->macroResponseJsonApi("guest not found", 204);
     }
 
     public function addTheDataToItsProperties ($model, $request)

@@ -48,13 +48,11 @@ class ReservationController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param int $id
+     * @param Reservation $reservation
      * @return ResourceObject
      */
-    public function show(int $id)
+    public function show(Reservation $reservation)
     {
-        $reservation = Reservation::find($id);
-
         if(is_object($reservation)){
             return ResourceObject::make($reservation);
         }
@@ -67,13 +65,11 @@ class ReservationController extends Controller
      * Update the specified resource in storage.
      *
      * @param ReservationRequest $request
-     * @param int $id
+     * @param Reservation $reservation
      * @return ResourceObject
      */
-    public function update(ReservationRequest $request, int $id)
+    public function update(ReservationRequest $request, Reservation $reservation)
     {
-        $reservation = Reservation::find($id);
-
         if(is_object($reservation)){
             $reservation = $this->addTheDataToItsProperties($reservation, $request);
             $reservation->save();
@@ -88,12 +84,11 @@ class ReservationController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
+     * @param Reservation $reservation
      * @return Response
      */
-    public function destroy(int $id)
+    public function destroy(Reservation $reservation)
     {
-        $reservation = Reservation::find($id);
         if(is_object($reservation)){
             $reservation->delete();
             return response()->macroResponseJsonApi("reservation deleted successfully", 200);

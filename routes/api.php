@@ -37,19 +37,16 @@ Route::name('api.v1.')->group(function () {
 
 
     //USERS
-    Route::get('/users/{status}', [UserController::class, 'index'])
-        ->name('users.index.status')
-        ->where('status', '[a-zA-Z]+');
+    Route::get('/users/{status?}', [UserController::class, 'index'])
+        ->name('users.index')
+        ->where('status', '[a-zA-Z]+');;
 
-    Route::get('/users/{user:dni}', [UserController::class, 'show'])
+    Route::get('/users/show/{user:dni}', [UserController::class, 'show'])
         ->name('users.show')
-        ->where('dni', '[0-9]+')
-        ->missing(function () {
-            return response()->macroResponseJsonApi('resource not found', 404);
-        });
+        ->where('dni', '[0-9]+');
 
     Route::apiResource('/users', UserController::class)
-        ->except(['index'. 'show'])
+        ->except('index', 'show')
         ->missing(function () {
             return response()->macroResponseJsonApi('resource not found', 404);
         });
@@ -69,22 +66,22 @@ Route::name('api.v1.')->group(function () {
         ->where('name', '[a-zA-Z]+');
 
     Route::apiResource('/categories', CategoryController::class)
-        ->except(['show'])
+        ->except('show')
         ->missing(function () {
             return response()->macroResponseJsonApi('resource not found', 404);
         });
 
     //ROOMS
-    Route::get('/rooms/{room:status?}', [RoomController::class, 'index'])
+    Route::get('/rooms/{status?}', [RoomController::class, 'index'])
         ->name('rooms.index')
         ->where('status', '[a-zA-Z]+');
-    /*Route::post('/rooms', [RoomController::class, 'store'])->name('rooms.store');
-    Route::get('/rooms/{room}', [RoomController::class, 'show'])->name('rooms.show');
-    Route::put('/rooms/{room}', [RoomController::class, 'update'])->name('rooms.update');
-    Route::delete('/rooms/{room}', [RoomController::class, 'destroy'])->name('rooms.destroy');*/
+
+    Route::get('/rooms/show/{room:dni}', [RoomController::class, 'show'])
+        ->name('rooms.show')
+        ->where('dni', '[0-9]+');
 
     Route::apiResource('/rooms', RoomController::class)
-        ->except(['index'])
+        ->except('index', 'show', 'destroy')
         ->where(['number' => '[0-9]+'])
         ->missing(function () {
             return response()->macroResponseJsonApi('resource not found', 404);
@@ -93,20 +90,20 @@ Route::name('api.v1.')->group(function () {
     //RECEPTION
     Route::get('/reception', [ReceptionController::class, 'index'])->name('reception.index');
 
-    Route::get('/reception/more-information-about-the-guest/{number}', [ReceptionController::class, 'showGuestData'])
+    Route::post('/reception', [ReceptionController::class, 'store'])->name('reception.store');
+
+    Route::get('/reception/{number}', [ReceptionController::class, 'show'])
         ->name('reception.show')
         ->where('number', '[0-9]+');
 
-    Route::post('/reception', [ReceptionController::class, 'registerANewGuestThroughTheReception'])->name('reception.store');
 
-    Route::put('/reception/{reception:id}', [ReceptionController::class, 'updateAGuestHostedThroughTheReception'])
+    Route::put('/reception/{id}', [ReceptionController::class, 'update'])
     ->name('reception.update')
     ->where('id', '[0-9]+');
 
-    Route::put('/reception/remove-a-guest-and-free-the-room/{idGuest}', [ReceptionController::class, 'removeAGuestAndFreeTheRoom'])
-    ->name('reception.remove_a_guest_and_free_the_room')
+    Route::delete('/reception/{id}', [ReceptionController::class, 'destroy'])
+    ->name('reception.destroy')
     ->where('id', '[0-9]+');
-
 
     //RESERVATIONS
     Route::apiResource('/reservations', ReservationController::class)
@@ -114,29 +111,28 @@ Route::name('api.v1.')->group(function () {
 
 
     //GUESTS
-    Route::get('/guests/{guest:status?}', [GuestController::class, 'index'])
+    Route::get('/guests/{status?}', [GuestController::class, 'index'])
         ->name('guests.index')
         ->where('status', '[a-zA-Z]+');
 
-    //not working
-    Route::apiResource('/guests', GuestController::class)->except(['index'])
-        ->except(['index']);
-
+    Route::get('/guests/show/{guest}', [GuestController::class, 'show'])
+        ->name('guests.show')
+        ->where('id', '[0-9]+');
 
     //BOXES
-    Route::get('/box', [BoxController::class, 'index']);
-    Route::get('/box/daily-check', [BoxController::class, 'dailyCheck']);
-    Route::get('/box/cash-details-by-date/{date}', [BoxController::class, 'cashDetailsByDate']);
+    Route::get('/box', [BoxController::class, 'index'])->name('box');
+    Route::get('/box/daily-check', [BoxController::class, 'dailyCheck'])->name('daily-check');
+    Route::get('/box/cash-details-by-date/{date}', [BoxController::class, 'cashDetailsByDate'])->name('cash-details-by-date');
 
 
     //SAVES IMAGES
     Route::delete('/remove-an-image-from-gallery/{id}', [ImageController::class, 'removeAnImageFromGallery'])->name('image.removeAnImageFromGallery');
 
     //STATISTICS
-    Route::get('/get-most-used-rooms',[StatisticsController::class, 'getMostUsedRooms']);
-    Route::get('/get-rooms-status',[StatisticsController::class, 'getRoomStatus']);
-    Route::get('/get-a-sum-of-money-per-month',[StatisticsController::class, 'getASumOfMoneyPerMonth']);
-    Route::get('/get-the-most-used-means-for-reservations',[StatisticsController::class, 'getTheMostUsedMeansForReservations']);
+    Route::get('/get-most-used-rooms',[StatisticsController::class, 'getMostUsedRooms'])->name('get-most-used-rooms');
+    Route::get('/get-rooms-status',[StatisticsController::class, 'getRoomStatus'])->name('get-rooms-status');
+    Route::get('/get-a-sum-of-money-per-month',[StatisticsController::class, 'getASumOfMoneyPerMonth'])->name('get-a-sum-of-money-per-month');
+    Route::get('/get-the-most-used-means-for-reservations',[StatisticsController::class, 'getTheMostUsedMeansForReservations'])->name('get-the-most-used-means-for-reservations');
 
 
     //generar PDF
