@@ -96,7 +96,6 @@ Route::name('api.v1.')->group(function () {
         ->name('reception.show')
         ->where('number', '[0-9]+');
 
-
     Route::put('/reception/{id}', [ReceptionController::class, 'update'])
     ->name('reception.update')
     ->where('id', '[0-9]+');
@@ -105,6 +104,7 @@ Route::name('api.v1.')->group(function () {
     ->name('reception.destroy')
     ->where('id', '[0-9]+');
 
+    
     //RESERVATIONS
     Route::apiResource('/reservations', ReservationController::class)
         ->where(['id' => '[0-9]+']);
