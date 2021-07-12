@@ -32,7 +32,7 @@ class UserSeeder extends Seeder
         $user->status = "enabled";
         $user->email = 'admin@gmail.com';
         $user->email_verified_at = now();
-        $user->password = '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'; // password
+        $user->password = '$2y$10$54tkJo77kYrCFGIFxyoxBOCP0eYjT5YKNWnYt03H9GGnq2sFlL1Me'; // supernova08
         $user->remember_token = Str::random(10);
         $user->save();
 
