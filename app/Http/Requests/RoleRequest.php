@@ -38,16 +38,14 @@ class RoleRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'unique:roles', new LowerCase,
              'min:3', 'max:30'],
-            'description' => ['required', 'string', 'min:3', 'max:250']
         ];
     }
 
     public function updateRole(): array
     {
         return [
-            'name' => ['required', 'string', 'min:3', 'max:30',
+            'name' => ['required', 'string', 'min:3', 'max:30', new LowerCase,
              Rule::unique('roles')->ignore($this->route('role'), 'id')],
-            'description' => ['required', 'string', 'min:3', 'max:30'],
         ];
     }
 }
