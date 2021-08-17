@@ -22,3 +22,14 @@ Route::get('/', function () {
 Route::post("login", [LoginController::class, 'login'])->name("login");
 Route::post("logout", [LoginController::class, 'logout'])->name("logout");
 
+Route::get('php-artisan-storage-link', function() {
+	if (file_exists(public_path('storage'))) {
+		return 'The "public/storage" directory  already exists';
+	}
+
+	app('files')->link(
+		storage_path('app/public'), public_path('storage')
+	);
+
+	return 'The "public/storage" directory has been linked';
+});
