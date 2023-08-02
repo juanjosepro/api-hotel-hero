@@ -14,12 +14,13 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        /*Role::factory()->create([
-            'name' => 'administrador',
-            'description' => 'lorem ipsum dolor sit amet, consectetur adipisicing elit.'
-        ]);*/
         $role = new Role();
         $role->name = 'administrador';
+        $role->description = 'lorem ipsum dolor sit amet, consectetur adipisicing elit.';
+        $role->save();
+
+        $role = new Role();
+        $role->name = 'recepcionista';
         $role->description = 'lorem ipsum dolor sit amet, consectetur adipisicing elit.';
         $role->save();
     }

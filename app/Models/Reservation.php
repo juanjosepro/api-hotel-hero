@@ -11,7 +11,7 @@ class Reservation extends Model
 
     protected $fillable = [
         "room_number", "category", "via", "persons", "name", "last_name", "dni",
-        "phone", "entry_date", "departure_date", "origin", "message", "status"
+        "phone", "entry_date", "departure_date", "origin", "message"
     ];
 
     public $type = 'reservations';
@@ -32,7 +32,6 @@ class Reservation extends Model
         'departure_date' => $this->departure_date,
         'origin' => $this->origin,
         'message' => $this->message,
-        'status' => $this->status,
         'via' => $this->via,
         'created_at' => $this->created_at,
           'links' => [

@@ -17,17 +17,20 @@ class UserController extends Controller
      *
      * @return ResourceCollection
      */
-
     /* status = enabled OR disabled */
     public function index($status = "enabled")
     {
         $statusLowercase = strtolower($status);
 
-        if ($statusLowercase != "enabled" && $statusLowercase != "disabled") {
+        if ($statusLowercase != "enabled" && $statusLowercase != "disabled" && $statusLowercase != "all") {
             return response()->macroResponseJsonApi('parameter invalid!', 404);
         }
 
-        $users = User::where("status", $statusLowercase)->latest()->get();
+        if($statusLowercase === 'all') {
+            $users = User::latest()->get();
+        } else {
+            $users = User::where("status", $statusLowercase)->latest()->get();
+        }
 
         if (count($users) > 0) {
             return ResourceCollection::make($users);
@@ -58,8 +61,12 @@ class UserController extends Controller
         //status enabled by default.
         $user->save();
 
-        //image by default
-        $user->image()->create(["url" => "public/without-image.jpg"]);
+        if ($request->hasFile("image")) {
+            $path = $request->file("image")->store("public/users");
+            $user->image()->update(["url" => $path]);
+        } else {
+            $user->image()->create(["url" => "public/without-image.jpg"]);
+        }
 
         return ResourceObject::make($user);
     }
@@ -95,9 +102,7 @@ class UserController extends Controller
         if (!empty($request["email"])) $user->email = strtolower($request["email"]);
 
         if ($request->hasFile("image")) {
-            if ($user->image->url !== "public/without-image.jpg") {
-                Storage::delete($user->image->url);
-              }
+            Storage::delete($user->image->url);
 
             $path = $request->file("image")->store("public/users");
             $user->image()->update(["url" => $path]);

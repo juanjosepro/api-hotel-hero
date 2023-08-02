@@ -38,10 +38,10 @@ class Category extends Model
         ];
     }
 
-    public function getRouteKeyName(): string
-    {
-        return 'name';
-    }
+    // public function getRouteKeyName(): string
+    // {
+    //     return 'name';
+    // }
 
     public function image () {
         return $this->morphOne(Image::class, 'imageable');

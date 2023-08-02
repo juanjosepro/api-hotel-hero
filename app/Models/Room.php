@@ -33,10 +33,10 @@ class Room extends Model
         ];
     }
 
-    public function getRouteKeyName(): string
-    {
-        return 'number';
-    }
+    // public function getRouteKeyName(): string
+    // {
+    //     return 'number';
+    // }
 
     public function category ()
     {

@@ -23,20 +23,20 @@ class StatisticsController extends Controller
 
     public function getRoomStatus()
     {
-        $totalAvailable = Room::select(DB::raw('count(status)'))->where('status', 'available')->first();
-        $totalOcupied = Room::select(DB::raw('count(status)'))->where('status', 'occupied')->first();
-        $totalCleaning = Room::select(DB::raw('count(status)'))->where('status', 'cleaning')->first();
-        $totalMaintenance = Room::select(DB::raw('count(status)'))->where('status', 'maintenance')->first();
-        $totalDisabled = Room::select(DB::raw('count(status)'))->where('status', 'disabled')->first();
+        $totalAvailable = Room::where('status', 'disabled')->get();
+        $totalOcupied = Room::where('status', 'occupied')->get();
+        $totalCleaning = Room::where('status', 'cleaning')->get();
+        $totalMaintenance = Room::where('status', 'maintenance')->get();
+        $totalDisabled = Room::where('status', 'disabled')->get();
         $totalRooms = Room::count();
 
         $data = [
-            ["name" => "total_rooms", "count" => $totalRooms],
-            ["name" => "total_available", "count" => $totalAvailable->count],
-            ["name" => "total_ocupied'", "count" => $totalOcupied->count],
-            ["name" => "total_cleaning", "count" => $totalCleaning->count],
-            ["name" => "total_maintenance", "count" => $totalMaintenance->count],
-            ["name" => "total_disabled", "count" => $totalDisabled->count]
+            ["total_rooms" => $totalRooms],
+            ["available" => count($totalAvailable)],
+            ["occupied" => count($totalOcupied)],
+            ["cleaning" => count($totalCleaning)],
+            ["maintenance" => count($totalMaintenance)],
+            ["disabled" => count($totalDisabled)]
         ];
         return response()->json($data);
     }
@@ -54,20 +54,20 @@ class StatisticsController extends Controller
     }
 
     public function getTheMostUsedMeansForReservations(){
-        $hotel = Reservation::select(DB::raw('count(via)'))->where('via', 'hotel')->first();
-        $web = Reservation::select(DB::raw('count(via)'))->where('via', 'web')->first();
-        $call = Reservation::select(DB::raw('count(via)'))->where('via', 'call')->first();
-        $whatsapp = Reservation::select(DB::raw('count(via)'))->where('via', 'whatsapp')->first();
-        $facebook = Reservation::select(DB::raw('count(via)'))->where('via', 'facebook')->first();
-        $other = Reservation::select(DB::raw('count(via)'))->where('via', 'other')->first();
+        $hotel = Reservation::where('via', 'hotel')->get();
+        $web = Reservation::where('via', 'web')->get();
+        $call = Reservation::where('via', 'call')->get();
+        $whatsapp = Reservation::where('via', 'whatsapp')->get();
+        $facebook = Reservation::where('via', 'facebook')->get();
+        $other = Reservation::where('via', 'other')->get();
 
         $data = [
-            ["name" => "hotel", "count" => $hotel->count > 0 ? $hotel->count : 0],
-            ["name" => "web", "count" => $web->count > 0 ? $web->count : 0],
-            ["name" => "call'", "count" => $call->count > 0 ? $call->count : 0],
-            ["name" => "whatsapp", "count" => $whatsapp->count > 0 ? $whatsapp->count : 0],
-            ["name" => "facebook", "count" => $facebook->count > 0 ? $facebook->count : 0],
-            ["name" => "other", "count" => $other->count > 0 ? $other->count : 0]
+            ["hotel" => count($hotel)],
+            ["web" => count($web)],
+            ["call" => count($call)],
+            ["whatsapp" => count($whatsapp)],
+            ["facebook" => count($facebook)],
+            ["other" => count($other)]
         ];
 
         return response()->json($data);

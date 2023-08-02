@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,6 +22,18 @@ Route::get('/', function () {
 //LOGIN AND LOGOUT
 Route::post("login", [LoginController::class, 'login'])->name("login");
 Route::post("logout", [LoginController::class, 'logout'])->name("logout");
+
+Route::get('clear', function() {
+
+    Artisan::call('cache:clear');
+    Artisan::call('config:clear');
+    Artisan::call('config:cache');
+    Artisan::call('view:clear');
+
+    return "Cleared!";
+
+});
+
 
 Route::get('php-artisan-storage-link', function() {
 	if (file_exists(public_path('storage'))) {

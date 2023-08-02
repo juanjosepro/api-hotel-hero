@@ -24,7 +24,10 @@ class GuestController extends Controller
             $listOfStatus = ["hosped", "retired"];
 
             //arrow functions exist as of version 7.4 of php
-            $validParameter = array_filter($listOfStatus, fn ($s) => $s === $statusLowercase);
+            // $validParameter = array_filter($listOfStatus, fn ($s) => $s === $statusLowercase);
+            $validParameter = array_filter($listOfStatus, function($s, $statusLowercase){
+                return $s === $statusLowercase;
+            });
 
             //error de variable global $statusLowercase
             /*$validParameter = array_filter($listOfStatus, function ($s) {

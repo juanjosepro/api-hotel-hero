@@ -16,12 +16,12 @@ use App\Http\Controllers\API\ReceptionController;
 use App\Http\Controllers\API\ReservationController;
 use App\Http\Controllers\PDFController;
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request){
+Route::middleware('auth:sanctum')->get('/is-authenticated', function (Request $request){
     return ResourceObject::make($request->user());
 });
 
 
-Route::name('api.v1.')->group(function () {
+Route::middleware('auth:sanctum')->name('api.v1.')->group(function () {
 
     //HOTEL DATA CONFIGURATION
     Route::get('/hotel', [HotelController::class, 'index'])->name('hotel.index');

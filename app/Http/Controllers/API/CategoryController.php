@@ -36,12 +36,22 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-        $category = Category::create([
-            'name' => strtolower($request['name'])
-        ]);
+        $category = new Category();
+        $category->name = strtolower($request["name"]);
+        $category->price = $request["price"];
+        $category->details = strtolower($request["details"]);
 
-        //image by default
-        $category->image()->create(["url" => "public/without-image.jpg"]);
+        $category->save();
+
+        if ($request->hasFile("images")) {
+            foreach ($request->file("images") as $image) {
+                $path = $image->store("public/categories");
+                $category->image()->create(["url" => $path]);
+            }
+        } else {
+            $category->image()->create(["url" => "public/without-image.jpg"]);
+        }
+
 
         return ResourceObject::make($category);
     }
@@ -66,9 +76,8 @@ class CategoryController extends Controller
      */
     public function update(CategoryRequest $request, Category $category)
     {
-        $price = str_replace(',','',$request["price"]);
         $category->name = strtolower($request["name"]);
-        $category->price = $price;
+        $category->price = $request["price"];
         $category->details = strtolower($request["details"]);
 
         if ($request->hasFile("images")) {

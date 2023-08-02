@@ -25,7 +25,7 @@ class RoomFactory extends Factory
     {
         return [
             'category_id' => Category::inRandomOrder()->value('id'),
-            'number' => $this->faker->unique()->numberBetween($min = 300, $max = 320),
+            'number' => $this->faker->unique()->numberBetween($min = 300, $max = 350),
             'level' => rand(1, Hotel::inRandomOrder()->value('levels')),
             'location' => $this->faker->randomElement(['pasadiso', 'entrada', 'balcon']),
             'status' => 'available' //$this->faker->randomElement(['available', 'occupied', 'maintenance', 'cleaning', 'disabled']),

@@ -28,9 +28,9 @@ class CategoryFactory extends Factory
                 'premiun',
                 'personal',
                 'triple',
-                ]),
-            'price' => $this->faker->randomFloat($nbMaxDecimals = 2, $min = 50, $max = 2250),
-            'details' => strtolower($this->faker->sentence($nbWords = 6, $variableNbWords = true)),
+            ]),
+            'price' => $this->faker->randomFloat($nbMaxDecimals = 2, $min = 50, $max = 250),
+            'details' => 'tv satelital,internet wifi,estacionamiento,aire acondicionado,teléfono,vista al jardín',
         ];
     }
 }
