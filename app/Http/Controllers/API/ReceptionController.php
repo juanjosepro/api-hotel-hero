@@ -23,9 +23,8 @@ class ReceptionController extends Controller
     public function index()
     {
         $categories = Category::select(["id", "name", "price"])->get();
-        $rooms = Room::select(["id", "category_id", "number", "level", "location", "status"])->get();
 
-        if (count($categories) === 0 || count($rooms) === 0) {
+        if (count($categories) === 0) {
             return response()
             ->macroResponseJsonApi("no resources to show", 204);
         }
@@ -33,14 +32,8 @@ class ReceptionController extends Controller
         $data = [];
 
         foreach ($categories as $category) {
-            $items = [];
-            foreach ($rooms as $room) {
-                if ($category->id == $room->category_id) {
-                    $room->price = $category->price;
-                    $items[] = $room;
-                }
-            }
-            $data[] = ["tab" => $category, "content" => $items];
+            $category->rooms;
+            $data[] = $category;
         }
 
         return $data;
