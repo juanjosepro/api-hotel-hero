@@ -163,9 +163,9 @@
     <div class="container">
         <div class="invoice-header">
             <div class="invoice-header__section1">
-                <div class="hotel-logo" {{-- style="background-image: url('{{ asset('without-image.jpg') }}'" --}}>
-                    {{-- <img src="{{public_path('without-image.jpg') }}" alt="logo"> --}}
-                    <img src="{{asset('without-image.jpg') }}" alt="logo">
+                <div class="hotel-logo" {{-- style="background-image: url('{{ asset('without-image.png') }}'" --}}>
+                    {{-- <img src="{{public_path('without-image.png') }}" alt="logo"> --}}
+                    <img src="{{asset('without-image.png') }}" alt="logo">
                 </div>
                 <div class="hotel-description">
                     <h5 class="text-uppercase" style="padding-bottom: 10px">COBRAR A:</h5>

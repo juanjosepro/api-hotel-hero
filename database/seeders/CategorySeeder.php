@@ -17,7 +17,7 @@ class CategorySeeder extends Seeder
     {
         Category::factory(5)->create()->each(function ($category) {
             $category->image()->save(Image::factory()->make([
-                'url' => 'public/without-image.jpg'
+                'url' => 'public/without-image.png'
             ]));
         });
     }

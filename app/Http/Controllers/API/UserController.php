@@ -65,7 +65,7 @@ class UserController extends Controller
             $path = $request->file("image")->store("public/users");
             $user->image()->update(["url" => $path]);
         } else {
-            $user->image()->create(["url" => "public/without-image.jpg"]);
+            $user->image()->create(["url" => "public/without-image.png"]);
         }
 
         return ResourceObject::make($user);

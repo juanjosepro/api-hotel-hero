@@ -30,7 +30,7 @@ class UserSeeder extends Seeder
         $user->remember_token = Str::random(10);
         $user->save();
 
-        $user->image()->create(["url" => "public/without-image.jpg"]);
+        $user->image()->create(["url" => "public/without-image.png"]);
 
         $user = new User();
         $user->role_id = 2;
@@ -46,6 +46,6 @@ class UserSeeder extends Seeder
         $user->remember_token = Str::random(10);
         $user->save();
 
-        $user->image()->create(["url" => "public/without-image.jpg"]);
+        $user->image()->create(["url" => "public/without-image.png"]);
     }
 }

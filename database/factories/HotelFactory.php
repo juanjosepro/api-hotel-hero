@@ -29,8 +29,8 @@ class HotelFactory extends Factory
             'email' => $this->faker->companyEmail,
             'levels' => 5,
             'description' => $this->faker->sentence,
-            'image' => 'public/without-image.jpg',
-            'logo' => 'public/without-image.jpg'
+            'image' => 'public/without-image.png',
+            'logo' => 'public/without-image.png'
         ];
     }
 }

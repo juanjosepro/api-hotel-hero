@@ -14,7 +14,7 @@ class ImageController extends Controller
         $image = Image::find($id);
 
         if (is_object($image)){
-            if ($image->url != "public/without-image.jpg") {
+            if ($image->url != "public/without-image.png") {
                 Storage::delete($image->url);
             }
             $image->delete();

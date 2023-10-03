@@ -17,7 +17,7 @@ class Category extends Model
 
     /* public function getImageAttribute($value)
     {
-        return $value ? : url(Storage::url('public/without-image.jpg'));
+        return $value ? : url(Storage::url('public/without-image.png'));
     } */
     protected $casts = [
         "price" => Price::class,

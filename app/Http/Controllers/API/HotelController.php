@@ -32,7 +32,7 @@ class HotelController extends Controller
         if (!empty($request["description"])) $hotel->description = $request["description"];
 
         if ($request->hasFile("image")) {
-          if ($hotel->image !== "public/without-image.jpg") {
+          if ($hotel->image !== "public/without-image.png") {
             Storage::delete($hotel->image);
           }
 
@@ -42,7 +42,7 @@ class HotelController extends Controller
 
         if ($request->hasFile("logo")) {
 
-          if ($hotel->logo !== "public/without-image.jpg") {
+          if ($hotel->logo !== "public/without-image.png") {
             Storage::delete($hotel->logo);
           }
 

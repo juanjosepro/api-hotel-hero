@@ -39,7 +39,7 @@ class CategoryController extends Controller
         $category = new Category();
         $category->name = strtolower($request["name"]);
         $category->price = $request["price"];
-        $category->details = strtolower($request["details"]);
+        $category->details = mb_convert_encoding(strtolower($request["details"]), "UTF-8", "auto");
 
         $category->save();
 
@@ -49,7 +49,7 @@ class CategoryController extends Controller
                 $category->image()->create(["url" => $path]);
             }
         } else {
-            $category->image()->create(["url" => "public/without-image.jpg"]);
+            $category->image()->create(["url" => "public/without-image.png"]);
         }
 
 
@@ -78,10 +78,10 @@ class CategoryController extends Controller
     {
         $category->name = strtolower($request["name"]);
         $category->price = $request["price"];
-        $category->details = strtolower($request["details"]);
+        $category->details = mb_convert_encoding(strtolower($request["details"]), "UTF-8", "auto");
 
         if ($request->hasFile("images")) {
-            if ($category->image->url == "public/without-image.jpg") {
+            if ($category->image->url == "public/without-image.png") {
                 $category->image->delete();
             }
 
@@ -110,13 +110,13 @@ class CategoryController extends Controller
 
         if (count($category->images) > 1) {
             foreach ($category->images as $image) {
-                if ($image->url != "public/without-image.jpg") {
+                if ($image->url != "public/without-image.png") {
                     Storage::delete($image->url);
                 }
                 $image->delete();
             }
         }else{
-            if ($category->image->url != "public/without-image.jpg") {
+            if ($category->image->url != "public/without-image.png") {
                 Storage::delete($category->image->url);
             }
             $category->image->delete();
