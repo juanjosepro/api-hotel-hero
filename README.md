@@ -1,10 +1,12 @@
-# [API del Sistema de Gestión Hotelera](#)
+# [Hotel Management System API](#)
 
 ![version](https://img.shields.io/badge/version-1.0.0-blue.svg)
 
->Ver Demo [Api Hotel App](http://api.hotel.juanjosepau.com "Ver demo")
+>See demo [Api hotel hero](http://api.hotel.juanjosepau.dev "See demo")
 
-### REQUIREMENTS
+>See demo [Frontend hotel hero](http://hotel.juanjosepau.dev "See demo")
+
+### REQUIREMENTS DEVELOPMENT SETUP
 ``` bash
 composer 2.5.8 # or any version no difference
 
@@ -13,7 +15,7 @@ php 7.3 # or php.7.4 not tested
 mysql or postgresql
 ```
 
-### SETUP
+### DEVELOPMENT SETUP
 ``` bash
 # comand basic
 composer install
@@ -45,18 +47,59 @@ php artisan serve --host localhost
 ```
 
 
-### API encargada de servir los datos de la administración del Hotel,  puede consumir la API y ver su [Documentación](https://documenter.getpostman.com/view/15269471/TzCS4kXs "Ver documentación de la api").
-### La API fue creada con PHP y el framework de Laravel.
+### CONFIGURATION FOR DEPLOYMENT IN CPANEL OR PLESK
 
-### Esta api es quien se encarga de servir todos los datos para el funcionamiento del [Frontend](https://hotel.juanjosepau.com "Ver aplicación que consume esta api") de la aplicación.
+- Clone the repository locally (development)
 
-<br>
+    ``` bash
+    # run commands
+    > composer install
+    > cp .env.example .env
+    > php artisan key:generate
 
-## Capturas de pantalla  
-> Página principal de la API
+    #optional
+    > install `fakerphp/faker` to run the seeders in production:
+        composer require fakerphp/faker
+    ```
 
+- Compress the project into ZIP and upload the project to cpanel or plesk, do the following:
+
+- It is necessary to redirect the start of the program to the `public/` folder in Plesk, it is necessary to create an .htaccess file with the following content:
+
+    ``` bash
+    <IfModule mod_rewrite.c>
+        RewriteEngine On
+        RewriteRule ^(.*)$ public/$1 [L]
+    </IfModule>
+    ```
+
+- Create the symbolic link (images) by accessing the following path:
+    > https://api.hotel.domain.dev/commands/php-artisan-storage-link
+
+- To create the database
+
+- Configure the `.env` file
+
+    - Configure environment variables for the database connection.
+    - Run the migrations (*only migrations or migrations with seeders)* by accessing the following path:
+        - https://api.hotel.domain.dev/commands/php-artisan-migrate
+        - https://api.hotel.domain.dev/commands/php-artisan-migrate-seed
+
+    - Setting up Laravel Sanctum
+        ``` bash
+        SANCTUM_STATEFUL_DOMAINS=hotel.domain.dev,api.hotel.domain.dev
+        SESSION_DOMAIN=hotel.domain.dev
+        ```
+
+### SUMMARY
+API in charge of serving the Hotel administration data, you can consume the API and see your [Documentation](https://documenter.getpostman.com/view/15269471/TzCS4kXs "See docs").
+
+This API is responsible for serving all the data for the operation of the [Frontend](https://hotel.juanjosepau.dev "See demo frontend") of the application.
+
+
+Screenshots
+> API home page
 ![screenshots1](public/screenshots/api-hotel.png)
 
-> Documentación de la API
-
+> API documentation
 ![screenshots1](public/screenshots/api-hotel2.png)
